@@ -3,6 +3,8 @@
 vim- and screen-style navigation for [herdr](https://herdr.dev): the window
 commands your fingers already know, for herdr panes, spaces and agents.
 
+![demo: moving and equalizing panes, jumping, toggling and reordering spaces](demo/demo.gif)
+
 | Action | Does | Like |
 |---|---|---|
 | `move-left/down/up/right` | Move the focused pane to a full-height/width edge, any number of panes | vim `^W H/J/K/L` |
@@ -129,6 +131,9 @@ CLAUDE_CWD=~                        # default: the focused pane's directory
   flicker. Zoomed tabs are left alone.
 - **Agent launcher** types `exec <CLAUDE_COMMAND>` into the new pane's shell,
   so quitting the agent closes the pane.
+- **Demo** is recorded with [VHS](https://github.com/charmbracelet/vhs) from
+  [`demo/demo.tape`](demo/demo.tape) in a throwaway `demo` session; run
+  `vhs demo/demo.tape` from the repo root, outside herdr.
 
 ## License
 
