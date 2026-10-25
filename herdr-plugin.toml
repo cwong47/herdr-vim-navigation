@@ -1,0 +1,132 @@
+id = "herdr-vim-navigation"
+name = "vim navigation"
+version = "0.1.0"
+min_herdr_version = "0.9.0"
+description = "vim- and screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W = equalize, last-space toggle, first/last space, space reordering and an agent launcher."
+platforms = ["linux", "macos"]
+
+# Records the last space you were in, for the last-space action.
+[[startup]]
+command = ["python3", "scripts/lastspace.py", "watch"]
+
+# ── Popups ───────────────────────────────────────────────────────────────────
+
+[[panes]]
+id = "space-mover-up"
+title = "Move space"
+placement = "popup"
+width = 60
+height = 5
+command = ["python3", "scripts/movespace.py", "up", "--interactive"]
+
+[[panes]]
+id = "space-mover-down"
+title = "Move space"
+placement = "popup"
+width = 60
+height = 5
+command = ["python3", "scripts/movespace.py", "down", "--interactive"]
+
+[[panes]]
+id = "claude-menu"
+title = "Start claude"
+placement = "popup"
+width = 60
+height = 3
+command = ["python3", "scripts/newclaude.py", "--menu"]
+
+# ── Panes ────────────────────────────────────────────────────────────────────
+
+[[actions]]
+id = "equalize"
+title = "Equalize panes"
+description = "Equalize pane sizes in the focused tab (vim ^W =)."
+command = ["python3", "scripts/equalize.py"]
+
+[[actions]]
+id = "move-left"
+title = "Move pane to left edge"
+description = "Move the focused pane to the full-height left edge (vim ^W H)."
+command = ["python3", "scripts/move.py", "h"]
+
+[[actions]]
+id = "move-down"
+title = "Move pane to bottom edge"
+description = "Move the focused pane to the full-width bottom edge (vim ^W J)."
+command = ["python3", "scripts/move.py", "j"]
+
+[[actions]]
+id = "move-up"
+title = "Move pane to top edge"
+description = "Move the focused pane to the full-width top edge (vim ^W K)."
+command = ["python3", "scripts/move.py", "k"]
+
+[[actions]]
+id = "move-right"
+title = "Move pane to right edge"
+description = "Move the focused pane to the full-height right edge (vim ^W L)."
+command = ["python3", "scripts/move.py", "l"]
+
+# ── Spaces ───────────────────────────────────────────────────────────────────
+
+[[actions]]
+id = "last-space"
+title = "Previous space (toggle)"
+description = "Jump back to the space you were in before (screen ^A ^A, cd -)."
+command = ["python3", "scripts/lastspace.py", "toggle"]
+
+[[actions]]
+id = "space-up"
+title = "Move space up"
+description = "Move the focused space up in the sidebar; keep pressing ^K/^J in the popup."
+command = ["python3", "scripts/popup.py", "space-mover-up"]
+
+[[actions]]
+id = "space-down"
+title = "Move space down"
+description = "Move the focused space down in the sidebar; keep pressing ^K/^J in the popup."
+command = ["python3", "scripts/popup.py", "space-mover-down"]
+
+[[actions]]
+id = "space-first"
+title = "First space"
+description = "Focus the first (top) space in the sidebar."
+command = ["python3", "scripts/focusspace.py", "first"]
+
+[[actions]]
+id = "space-last"
+title = "Last space"
+description = "Focus the last (bottom) space in the sidebar."
+command = ["python3", "scripts/focusspace.py", "last"]
+
+# ── Agents ───────────────────────────────────────────────────────────────────
+
+[[actions]]
+id = "claude-menu"
+title = "Start claude…"
+description = "Popup: w new space, t new tab, | split right, - split down."
+command = ["python3", "scripts/popup.py", "claude-menu"]
+
+[[actions]]
+id = "claude-space"
+title = "Start claude in a new space"
+description = "Run CLAUDE_COMMAND in a new space."
+command = ["python3", "scripts/newclaude.py", "space"]
+
+[[actions]]
+id = "claude-tab"
+title = "Start claude in a new tab"
+description = "Run CLAUDE_COMMAND in a new tab."
+command = ["python3", "scripts/newclaude.py", "tab"]
+
+[[actions]]
+id = "claude-right"
+title = "Start claude in a split right"
+description = "Run CLAUDE_COMMAND in a new pane to the right."
+command = ["python3", "scripts/newclaude.py", "right"]
+
+[[actions]]
+id = "claude-down"
+title = "Start claude in a split below"
+description = "Run CLAUDE_COMMAND in a new pane below."
+command = ["python3", "scripts/newclaude.py", "down"]
