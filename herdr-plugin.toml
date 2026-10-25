@@ -1,8 +1,8 @@
 id = "herdr-vim-navigation"
 name = "vim navigation"
-version = "0.1.0"
+version = "0.2.0"
 min_herdr_version = "0.9.0"
-description = "vim- and screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W = equalize, last-space toggle, first/last space, space reordering and an agent launcher."
+description = "vim- and screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W = equalize, last-space toggle, first/last space and space reordering."
 platforms = ["linux", "macos"]
 
 # Records the last space you were in, for the last-space action.
@@ -26,14 +26,6 @@ placement = "popup"
 width = 60
 height = 5
 command = ["python3", "scripts/movespace.py", "down", "--interactive"]
-
-[[panes]]
-id = "claude-menu"
-title = "Start claude"
-placement = "popup"
-width = 60
-height = 3
-command = ["python3", "scripts/newclaude.py", "--menu"]
 
 # ── Panes ────────────────────────────────────────────────────────────────────
 
@@ -98,35 +90,3 @@ id = "space-last"
 title = "Last space"
 description = "Focus the last (bottom) space in the sidebar."
 command = ["python3", "scripts/focusspace.py", "last"]
-
-# ── Agents ───────────────────────────────────────────────────────────────────
-
-[[actions]]
-id = "claude-menu"
-title = "Start claude…"
-description = "Popup: w new space, t new tab, | split right, - split down."
-command = ["python3", "scripts/popup.py", "claude-menu"]
-
-[[actions]]
-id = "claude-space"
-title = "Start claude in a new space"
-description = "Run CLAUDE_COMMAND in a new space."
-command = ["python3", "scripts/newclaude.py", "space"]
-
-[[actions]]
-id = "claude-tab"
-title = "Start claude in a new tab"
-description = "Run CLAUDE_COMMAND in a new tab."
-command = ["python3", "scripts/newclaude.py", "tab"]
-
-[[actions]]
-id = "claude-right"
-title = "Start claude in a split right"
-description = "Run CLAUDE_COMMAND in a new pane to the right."
-command = ["python3", "scripts/newclaude.py", "right"]
-
-[[actions]]
-id = "claude-down"
-title = "Start claude in a split below"
-description = "Run CLAUDE_COMMAND in a new pane below."
-command = ["python3", "scripts/newclaude.py", "down"]

@@ -1,4 +1,4 @@
-"""Shared helpers: herdr's socket API, its CLI, and this plugin's directories."""
+"""Shared helpers: herdr's socket API, its CLI, and this plugin's state dir."""
 import hashlib
 import json
 import os
@@ -51,14 +51,6 @@ def focused_space():
     return next((w["workspace_id"] for w in spaces() if w["focused"]), None)
 
 
-def config_dir():
-    path = os.environ.get("HERDR_PLUGIN_CONFIG_DIR")
-    if not path:
-        out = subprocess.run([HERDR, "plugin", "config-dir", PLUGIN_ID],
-                             env=ENV, capture_output=True, text=True).stdout.strip()
-        path = out or os.path.expanduser(f"~/.config/herdr/plugins/config/{PLUGIN_ID}")
-    return path
-
 
 def state_path(name):
     """A per-session state file. The state dir is per plugin, the socket per session."""
@@ -67,19 +59,3 @@ def state_path(name):
     os.makedirs(base, exist_ok=True)
     session = hashlib.sha1(SOCK.encode()).hexdigest()[:12]
     return os.path.join(base, f"{session}-{name}")
-
-
-def read_config():
-    """KEY=VALUE pairs from config.env in the plugin's config dir."""
-    conf = {}
-    try:
-        with open(os.path.join(config_dir(), "config.env")) as f:
-            for line in f:
-                line = line.strip()
-                if not line or line.startswith("#") or "=" not in line:
-                    continue
-                key, value = line.split("=", 1)
-                conf[key.strip()] = value.strip().strip("'\"")
-    except OSError:
-        pass
-    return conf

@@ -1,7 +1,7 @@
 # herdr-vim-navigation
 
 vim- and screen-style navigation for [herdr](https://herdr.dev): the window
-commands your fingers already know, for herdr panes, spaces and agents.
+commands your fingers already know, for herdr panes and spaces.
 
 ![demo: moving and equalizing panes, jumping, toggling and reordering spaces](demo/demo.gif)
 
@@ -12,8 +12,6 @@ commands your fingers already know, for herdr panes, spaces and agents.
 | `last-space` | Jump back to the space you were in before; again to return | screen `^A ^A`, `cd -` |
 | `space-up` / `space-down` | Move the focused space in the sidebar; keep pressing `^K/^J` in the popup | — |
 | `space-first` / `space-last` | Focus the top / bottom space in the sidebar | vim `^W t` / `^W b` |
-| `claude-menu` | Popup: `w` new space, `t` new tab, `\|` split right, `-` split down | — |
-| `claude-space/tab/right/down` | The same, one action each | — |
 
 Not to be confused with [vim-herdr-navigation](https://github.com/paulbkim-dev/vim-herdr-navigation),
 which makes `Ctrl+h/j/k/l` cross between Vim splits and herdr panes; the two
@@ -98,26 +96,10 @@ command = "herdr-vim-navigation.space-first"
 key = "prefix+}"
 type = "plugin_action"
 command = "herdr-vim-navigation.space-last"
-
-[[keys.command]]
-key = "prefix+shift+c"
-type = "plugin_action"
-command = "herdr-vim-navigation.claude-menu"
 ```
 
 `prefix+shift+h/j/k/l` replace nothing by default, and `prefix+=`/`prefix+b`
 are unbound in herdr's defaults; check `prefix ?` against your own config.
-
-## Configuration
-
-The claude actions read `config.env` from the plugin's config directory
-(`herdr plugin config-dir herdr-vim-navigation`). See
-[`config.example.env`](config.example.env):
-
-```sh
-CLAUDE_COMMAND="claude /my-skill"   # default: claude
-CLAUDE_CWD=~                        # default: the focused pane's directory
-```
 
 ## Notes
 
@@ -129,8 +111,6 @@ CLAUDE_CWD=~                        # default: the focused pane's directory
 - **Pane moves** briefly hop panes through temporary tabs (herdr refuses
   same-tab moves and can only split one pane at a time), so the tab bar may
   flicker. Zoomed tabs are left alone.
-- **Agent launcher** types `exec <CLAUDE_COMMAND>` into the new pane's shell,
-  so quitting the agent closes the pane.
 - **Demo** is recorded with [VHS](https://github.com/charmbracelet/vhs) from
   [`demo/demo.tape`](demo/demo.tape) in a throwaway `demo` session; run
   `vhs demo/demo.tape` from the repo root, outside herdr.
