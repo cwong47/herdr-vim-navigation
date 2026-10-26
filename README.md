@@ -8,6 +8,8 @@ commands your fingers already know, for herdr panes and spaces.
 | Action | Does | Like |
 |---|---|---|
 | `move-left/down/up/right` | Move the focused pane to a full-height/width edge, any number of panes | vim `^W H/J/K/L` |
+| `only` | Close every other pane in the focused tab | vim `^W o`, screen `^A q` |
+| `only-tab` | Close every other tab in the focused space | vim `:tabonly` |
 | `equalize` | Equal widths for panes side by side, equal heights for stacked ones | vim `^W =` |
 | `last-space` | Jump back to the space you were in before; again to return | screen `^A ^A`, `cd -` |
 | `space-up` / `space-down` | Move the focused space in the sidebar; keep pressing `^K/^J` in the popup | — |
@@ -51,6 +53,16 @@ The plugin only provides actions; bind the ones you want in
 key = "prefix+="
 type = "plugin_action"
 command = "herdr-vim-navigation.equalize"
+
+[[keys.command]]
+key = "prefix+shift+q"
+type = "plugin_action"
+command = "herdr-vim-navigation.only"
+
+[[keys.command]]
+key = "prefix+ctrl+q"
+type = "plugin_action"
+command = "herdr-vim-navigation.only-tab"
 
 [[keys.command]]
 key = "prefix+shift+h"

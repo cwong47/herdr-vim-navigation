@@ -1,6 +1,6 @@
 id = "herdr-vim-navigation"
 name = "vim navigation"
-version = "0.2.0"
+version = "0.3.0"
 min_herdr_version = "0.9.0"
 description = "vim- and screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W = equalize, last-space toggle, first/last space and space reordering."
 platforms = ["linux", "macos"]
@@ -58,6 +58,18 @@ id = "move-right"
 title = "Move pane to right edge"
 description = "Move the focused pane to the full-height right edge (vim ^W L)."
 command = ["python3", "scripts/move.py", "l"]
+
+[[actions]]
+id = "only"
+title = "Close other panes"
+description = "Close every pane in the focused tab except the focused one (vim ^W o, screen ^A q)."
+command = ["python3", "scripts/only.py", "pane"]
+
+[[actions]]
+id = "only-tab"
+title = "Close other tabs"
+description = "Close every tab in the focused space except the focused one (vim :tabonly)."
+command = ["python3", "scripts/only.py", "tab"]
 
 # ── Spaces ───────────────────────────────────────────────────────────────────
 
