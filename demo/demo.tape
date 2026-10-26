@@ -126,3 +126,26 @@ Ctrl+K
 Sleep 1s
 Enter
 Sleep 2s
+
+# ── Tabs: close every other tab (vim :tabonly) ──
+# Two extra tabs are added hidden via the CLI so there is something to close.
+Hide
+Type@5ms "herdr tab create --label logs --no-focus >/dev/null; herdr tab create --label scratch --no-focus >/dev/null; cap 'Close other tabs' 'prefix ^Q  (vim :tabonly)'"
+Enter
+Sleep 500ms
+Show
+Sleep 2s
+Ctrl+B
+Ctrl+Q
+Sleep 1.5s
+
+# ── Panes: close every other pane (vim ^W o, screen ^A q) ──
+Hide
+Type@5ms "cap 'Close other panes' 'prefix Q  (vim ^W o, screen ^A q)'"
+Enter
+Sleep 300ms
+Show
+Sleep 1.5s
+Ctrl+B
+Type "Q"
+Sleep 2s

@@ -3,7 +3,7 @@
 vim- and screen-style navigation for [herdr](https://herdr.dev): the window
 commands your fingers already know, for herdr panes and spaces.
 
-![demo: moving and equalizing panes, jumping, toggling and reordering spaces](demo/demo.gif)
+![demo: moving and equalizing panes, jumping, toggling and reordering spaces, closing other tabs and panes](demo/demo.gif)
 
 | Action | Does | Like |
 |---|---|---|
