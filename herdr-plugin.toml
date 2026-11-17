@@ -1,8 +1,8 @@
 id = "herdr-vim-navigation"
 name = "Vim Navigation"
-version = "0.4.0"
+version = "0.5.0"
 min_herdr_version = "0.9.0"
-description = "Vim- and Screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W T pane to new tab, pane to new space, ^W = equalize, last-space toggle, first/last space and space reordering."
+description = "Vim- and Screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W T pane to new tab, pane to new space, join pane into another tab, ^W = equalize, last-space toggle, first/last space and space reordering."
 platforms = ["linux", "macos"]
 
 # Records the last space you were in, for the last-space action.
@@ -10,10 +10,12 @@ platforms = ["linux", "macos"]
 command = ["python3", "scripts/lastspace.py", "watch"]
 
 # ── Popups ───────────────────────────────────────────────────────────────────
+# Titles are padded with U+2800 (braille blank): herdr trims spaces, and the
+# padding matches the gap around built-in popup titles like help.
 
 [[panes]]
 id = "space-mover-up"
-title = "Move space"
+title = "⠀Move space⠀"
 placement = "popup"
 width = 60
 height = 5
@@ -21,11 +23,19 @@ command = ["python3", "scripts/movespace.py", "up", "--interactive"]
 
 [[panes]]
 id = "space-mover-down"
-title = "Move space"
+title = "⠀Move space⠀"
 placement = "popup"
 width = 60
 height = 5
 command = ["python3", "scripts/movespace.py", "down", "--interactive"]
+
+[[panes]]
+id = "join-picker"
+title = "⠀Move pane to tab⠀"
+placement = "popup"
+width = 90
+height = 20
+command = ["python3", "scripts/join.py", "--interactive"]
 
 # ── Panes ────────────────────────────────────────────────────────────────────
 
@@ -70,6 +80,12 @@ id = "break-space"
 title = "Move pane to new space"
 description = "Move the focused pane into a new space of its own."
 command = ["python3", "scripts/break.py", "space"]
+
+[[actions]]
+id = "join"
+title = "Move pane into another tab"
+description = "Pick a pane in another tab and split the focused pane next to it (tmux join-pane)."
+command = ["python3", "scripts/join.py"]
 
 [[actions]]
 id = "only"

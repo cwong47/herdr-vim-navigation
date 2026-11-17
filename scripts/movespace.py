@@ -26,7 +26,7 @@ def move(cur, direction):
 def status(cur):
     ws = spaces()
     w = next(w for w in ws if w["workspace_id"] == cur)
-    sys.stdout.write(f"\r\x1b[K{w['number']}/{len(ws)}  {w['label'][:40]}")
+    sys.stdout.write(f"\r\x1b[K❯ {w['number']}/{len(ws)}  {w['label'][:40]}")
     sys.stdout.flush()
 
 

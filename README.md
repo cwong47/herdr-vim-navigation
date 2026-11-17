@@ -3,13 +3,14 @@
 Vim- and Screen-style navigation for [herdr](https://herdr.dev): the window
 commands your fingers already know, for herdr panes and spaces.
 
-![demo: moving and equalizing panes, jumping, toggling and reordering spaces, closing other tabs and panes, breaking panes out to a new tab and space](demo/demo.gif)
+![demo: moving and equalizing panes, jumping, toggling and reordering spaces, closing other tabs and panes, breaking panes out to a new tab and space, joining a pane into another tab](demo/demo.gif)
 
 | Action | Does | Like |
 |---|---|---|
 | `move-left/down/up/right` | Move the focused pane to a full-height/width edge, any number of panes | Vim `^W H/J/K/L` |
 | `break-tab` | Move the focused pane into a new tab of its own | Vim `^W T`, tmux `prefix !` |
 | `break-space` | Move the focused pane into a new space of its own | — |
+| `join` | Pick a pane in another tab from a popup and split the focused pane next to it | tmux `join-pane` |
 | `only` | Close every other pane in the focused tab | Vim `^W o`, Screen `^A q` |
 | `only-tab` | Close every other tab in the focused space | Vim `:tabonly` |
 | `equalize` | Equal widths for panes side by side, equal heights for stacked ones | Vim `^W =` |
@@ -97,6 +98,11 @@ type = "plugin_action"
 command = "herdr-vim-navigation.break-space"
 
 [[keys.command]]
+key = "prefix+@"
+type = "plugin_action"
+command = "herdr-vim-navigation.join"
+
+[[keys.command]]
 key = "prefix+b"
 type = "plugin_action"
 command = "herdr-vim-navigation.last-space"
@@ -122,7 +128,7 @@ type = "plugin_action"
 command = "herdr-vim-navigation.space-last"
 ```
 
-`prefix+shift+h/j/k/l` replace nothing by default, and `prefix+=`/`prefix+b`
+`prefix+shift+h/j/k/l` replace nothing by default, and `prefix+=`/`prefix+b`/`prefix+@`
 are unbound in herdr's defaults. `prefix+shift+t`/`prefix+shift+w` are herdr's
 default `rename_tab`/`rename_workspace`; move those first (e.g.
 `rename_tab = "prefix+alt+t"`, `rename_workspace = "prefix+alt+w"` under
@@ -138,9 +144,14 @@ default `rename_tab`/`rename_workspace`; move those first (e.g.
 - **Pane moves** briefly hop panes through temporary tabs (herdr refuses
   same-tab moves and can only split one pane at a time), so the tab bar may
   flicker. Zoomed tabs are left alone.
+- **join** lists panes in every other tab of every space (same-tab moves are
+  refused). In the popup, `j`/`k` or arrows select, `Enter`/`l`/`|` split
+  right, `-`/`s` split down, `Esc`/`q` cancel.
 - **Demo** is recorded with [VHS](https://github.com/charmbracelet/vhs) from
-  [`demo/demo.tape`](demo/demo.tape) in a throwaway `demo` session; run
-  `vhs demo/demo.tape` from the repo root, outside herdr.
+  [`demo/demo.tape`](demo/demo.tape) in a throwaway `demo` session with its
+  own herdr home ([`demo/home.sh`](demo/home.sh): your config, only this
+  plugin, no saved SSH machines); run `vhs demo/demo.tape` from the repo root,
+  outside herdr.
 
 ## License
 
