@@ -149,3 +149,38 @@ Sleep 1.5s
 Ctrl+B
 Type "Q"
 Sleep 2s
+
+# ── Panes: break out to a new tab (vim ^W T, tmux prefix !) ──
+# Two panes are split back in, hidden, so there is something to break out.
+Hide
+Ctrl+B
+Type "|"
+Sleep 800ms
+Type@5ms "DEMO_LABEL=logs DEMO_COLOR=45 DEMO_VIEW='git -c color.ui=always log --oneline -8'; view"
+Enter
+Sleep 500ms
+Ctrl+B
+Type "-"
+Sleep 800ms
+Type@5ms "DEMO_LABEL=tests DEMO_COLOR=46 DEMO_VIEW='ls -lG demo'; cap 'Pane to new tab' 'prefix T  (vim ^W T, tmux prefix !)'"
+Enter
+Sleep 300ms
+Show
+Sleep 1.5s
+Ctrl+B
+Type "T"
+Sleep 2s
+
+# ── Panes: break out to a new space ──
+Hide
+Type@5ms "cap 'Pane to new space' 'prefix 1  then  prefix W'"
+Enter
+Sleep 300ms
+Show
+Sleep 1.5s
+Ctrl+B
+Type "1"
+Sleep 1.5s
+Ctrl+B
+Type "W"
+Sleep 2.5s
