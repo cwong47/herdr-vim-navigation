@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Equalize pane sizes in the focused tab (like vim's ^W =).
+"""Equalize pane sizes in the focused tab (like Vim's ^W =).
 
 Usage: equalize.py [tab_id]
 Panes side by side get equal widths, panes stacked get equal heights.

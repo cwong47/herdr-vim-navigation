@@ -1,19 +1,21 @@
 # herdr-vim-navigation
 
-vim- and screen-style navigation for [herdr](https://herdr.dev): the window
+Vim- and Screen-style navigation for [herdr](https://herdr.dev): the window
 commands your fingers already know, for herdr panes and spaces.
 
 ![demo: moving and equalizing panes, jumping, toggling and reordering spaces, closing other tabs and panes](demo/demo.gif)
 
 | Action | Does | Like |
 |---|---|---|
-| `move-left/down/up/right` | Move the focused pane to a full-height/width edge, any number of panes | vim `^W H/J/K/L` |
-| `only` | Close every other pane in the focused tab | vim `^W o`, screen `^A q` |
-| `only-tab` | Close every other tab in the focused space | vim `:tabonly` |
-| `equalize` | Equal widths for panes side by side, equal heights for stacked ones | vim `^W =` |
-| `last-space` | Jump back to the space you were in before; again to return | screen `^A ^A`, `cd -` |
+| `move-left/down/up/right` | Move the focused pane to a full-height/width edge, any number of panes | Vim `^W H/J/K/L` |
+| `break-tab` | Move the focused pane into a new tab of its own | Vim `^W T`, tmux `prefix !` |
+| `break-space` | Move the focused pane into a new space of its own | — |
+| `only` | Close every other pane in the focused tab | Vim `^W o`, Screen `^A q` |
+| `only-tab` | Close every other tab in the focused space | Vim `:tabonly` |
+| `equalize` | Equal widths for panes side by side, equal heights for stacked ones | Vim `^W =` |
+| `last-space` | Jump back to the space you were in before; again to return | Screen `^A ^A`, `cd -` |
 | `space-up` / `space-down` | Move the focused space in the sidebar; keep pressing `^K/^J` in the popup | — |
-| `space-first` / `space-last` | Focus the top / bottom space in the sidebar | vim `^W t` / `^W b` |
+| `space-first` / `space-last` | Focus the top / bottom space in the sidebar | Vim `^W t` / `^W b` |
 
 Not to be confused with [vim-herdr-navigation](https://github.com/paulbkim-dev/vim-herdr-navigation),
 which makes `Ctrl+h/j/k/l` cross between Vim splits and herdr panes; the two
@@ -46,7 +48,7 @@ herdr plugin link ./herdr-vim-navigation
 ## Key bindings
 
 The plugin only provides actions; bind the ones you want in
-`~/.config/herdr/config.toml`. A screen/vim-flavoured set:
+`~/.config/herdr/config.toml`. A Screen/Vim-flavoured set:
 
 ```toml
 [[keys.command]]
@@ -85,6 +87,16 @@ type = "plugin_action"
 command = "herdr-vim-navigation.move-right"
 
 [[keys.command]]
+key = "prefix+shift+t"
+type = "plugin_action"
+command = "herdr-vim-navigation.break-tab"
+
+[[keys.command]]
+key = "prefix+shift+w"
+type = "plugin_action"
+command = "herdr-vim-navigation.break-space"
+
+[[keys.command]]
 key = "prefix+b"
 type = "plugin_action"
 command = "herdr-vim-navigation.last-space"
@@ -111,7 +123,10 @@ command = "herdr-vim-navigation.space-last"
 ```
 
 `prefix+shift+h/j/k/l` replace nothing by default, and `prefix+=`/`prefix+b`
-are unbound in herdr's defaults; check `prefix ?` against your own config.
+are unbound in herdr's defaults. `prefix+shift+t`/`prefix+shift+w` are herdr's
+default `rename_tab`/`rename_workspace`; move those first (e.g.
+`rename_tab = "prefix+alt+t"`, `rename_workspace = "prefix+alt+w"` under
+`[keys]`). Check `prefix ?` against your own config.
 
 ## Notes
 

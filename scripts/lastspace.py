@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Jump back to the last space (workspace) you were in, like `cd -` or screen's ^A ^A.
+"""Jump back to the last space (workspace) you were in, like `cd -` or Screen's ^A ^A.
 
 Usage: lastspace.py watch|toggle
 `watch` is the plugin's startup hook: it subscribes to workspace.focused events

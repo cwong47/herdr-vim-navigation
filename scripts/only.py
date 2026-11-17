@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Close every other pane in the focused tab (like vim's ^W o, screen's ^A q),
-or every other tab in the focused space (like vim's :tabonly).
+"""Close every other pane in the focused tab (like Vim's ^W o, Screen's ^A q),
+or every other tab in the focused space (like Vim's :tabonly).
 
 Usage: only.py pane [pane_id]
        only.py tab [tab_id]

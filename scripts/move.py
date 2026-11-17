@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Move the focused pane to a full-height/width edge of its tab (like vim's ^W H/J/K/L).
+"""Move the focused pane to a full-height/width edge of its tab (like Vim's ^W H/J/K/L).
 
 Usage: move.py h|j|k|l [pane_id]
 herdr refuses same-tab moves and can only split a single pane, so every pane
 hops out to a temp tab and is moved back one by one, splitting the right leaf
 each time to rebuild the tree with the pane at the edge. Processes survive
-moves. Sizes are equalized afterwards (vim's equalalways).
+moves. Sizes are equalized afterwards (Vim's equalalways).
 """
 import sys
 

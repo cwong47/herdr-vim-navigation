@@ -1,8 +1,8 @@
 id = "herdr-vim-navigation"
-name = "vim navigation"
-version = "0.3.0"
+name = "Vim Navigation"
+version = "0.4.0"
 min_herdr_version = "0.9.0"
-description = "vim- and screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W = equalize, last-space toggle, first/last space and space reordering."
+description = "Vim- and Screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W T pane to new tab, pane to new space, ^W = equalize, last-space toggle, first/last space and space reordering."
 platforms = ["linux", "macos"]
 
 # Records the last space you were in, for the last-space action.
@@ -32,43 +32,55 @@ command = ["python3", "scripts/movespace.py", "down", "--interactive"]
 [[actions]]
 id = "equalize"
 title = "Equalize panes"
-description = "Equalize pane sizes in the focused tab (vim ^W =)."
+description = "Equalize pane sizes in the focused tab (Vim ^W =)."
 command = ["python3", "scripts/equalize.py"]
 
 [[actions]]
 id = "move-left"
 title = "Move pane to left edge"
-description = "Move the focused pane to the full-height left edge (vim ^W H)."
+description = "Move the focused pane to the full-height left edge (Vim ^W H)."
 command = ["python3", "scripts/move.py", "h"]
 
 [[actions]]
 id = "move-down"
 title = "Move pane to bottom edge"
-description = "Move the focused pane to the full-width bottom edge (vim ^W J)."
+description = "Move the focused pane to the full-width bottom edge (Vim ^W J)."
 command = ["python3", "scripts/move.py", "j"]
 
 [[actions]]
 id = "move-up"
 title = "Move pane to top edge"
-description = "Move the focused pane to the full-width top edge (vim ^W K)."
+description = "Move the focused pane to the full-width top edge (Vim ^W K)."
 command = ["python3", "scripts/move.py", "k"]
 
 [[actions]]
 id = "move-right"
 title = "Move pane to right edge"
-description = "Move the focused pane to the full-height right edge (vim ^W L)."
+description = "Move the focused pane to the full-height right edge (Vim ^W L)."
 command = ["python3", "scripts/move.py", "l"]
+
+[[actions]]
+id = "break-tab"
+title = "Move pane to new tab"
+description = "Move the focused pane into a new tab of its own (Vim ^W T, tmux prefix !)."
+command = ["python3", "scripts/break.py", "tab"]
+
+[[actions]]
+id = "break-space"
+title = "Move pane to new space"
+description = "Move the focused pane into a new space of its own."
+command = ["python3", "scripts/break.py", "space"]
 
 [[actions]]
 id = "only"
 title = "Close other panes"
-description = "Close every pane in the focused tab except the focused one (vim ^W o, screen ^A q)."
+description = "Close every pane in the focused tab except the focused one (Vim ^W o, Screen ^A q)."
 command = ["python3", "scripts/only.py", "pane"]
 
 [[actions]]
 id = "only-tab"
 title = "Close other tabs"
-description = "Close every tab in the focused space except the focused one (vim :tabonly)."
+description = "Close every tab in the focused space except the focused one (Vim :tabonly)."
 command = ["python3", "scripts/only.py", "tab"]
 
 # ── Spaces ───────────────────────────────────────────────────────────────────
@@ -76,7 +88,7 @@ command = ["python3", "scripts/only.py", "tab"]
 [[actions]]
 id = "last-space"
 title = "Previous space (toggle)"
-description = "Jump back to the space you were in before (screen ^A ^A, cd -)."
+description = "Jump back to the space you were in before (Screen ^A ^A, cd -)."
 command = ["python3", "scripts/lastspace.py", "toggle"]
 
 [[actions]]
