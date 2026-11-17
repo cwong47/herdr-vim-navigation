@@ -1,8 +1,8 @@
 # herdr-vim-navigation — demo tape
 # Record from the repo root, in a terminal that is NOT inside herdr:
-#     herdr session stop demo; herdr session delete demo   # clean slate
 #     vhs demo/demo.tape
-# Uses a throwaway "demo" session so your real herdr session is untouched.
+# Uses a throwaway "demo" session in its own herdr home (demo/home.sh, rebuilt
+# each run), so your real session, other plugins and SSH machines stay out.
 # Keys assume prefix = Ctrl+B and the bindings in ~/.config/herdr/config.toml.
 #
 # Captions: each step starts with a hidden `cap TITLE BODY` (from
@@ -26,10 +26,11 @@ Set TypingSpeed 40ms
 # SHELL points herdr's panes at demo/shell.sh (no dotfiles, plain prompt).
 # The herdr CLI inside a pane talks to that pane's session (HERDR_SOCKET_PATH),
 # so the extra spaces land in "demo", not your real session.
-# HERDR_CONFIG_PATH swaps in a copy of your config without the hostname/clock
-# on the tab bar (demo/config.sh).
+# XDG_CONFIG_HOME/XDG_STATE_HOME point herdr at demo/home.sh's throwaway home:
+# a copy of your config without the hostname/clock on the tab bar
+# (demo/config.sh) and only this plugin linked.
 Hide
-Type "export SHELL=$PWD/demo/shell.sh PS1='$ ' HERDR_CONFIG_PATH=$(demo/config.sh); clear; herdr --session demo"
+Type "D=$(demo/home.sh); export SHELL=$PWD/demo/shell.sh PS1='$ ' XDG_CONFIG_HOME=$D/config XDG_STATE_HOME=$D/state; clear; herdr --session demo"
 Enter
 Sleep 3s
 Type@5ms "for s in api:45 web:46 docs:43; do herdr workspace create --label ${s%:*} --env DEMO_LABEL=${s%:*} --env DEMO_COLOR=${s#*:} --no-focus >/dev/null; done"
@@ -183,4 +184,27 @@ Type "1"
 Sleep 1.5s
 Ctrl+B
 Type "W"
+Sleep 2.5s
+
+# ── Panes: join into another tab as a split (tmux join-pane) ──
+# Focus is in the space break-space just made; the picker lists panes in every
+# other tab, space 1 first, so Enter lands the pane beside space 1's first pane.
+Hide
+Type@5ms "cap 'Pane into another tab' 'prefix @, pick a pane, Enter  (tmux join-pane)'"
+Enter
+Sleep 300ms
+Show
+Sleep 1.5s
+Ctrl+B
+Type "@"
+Sleep 1.5s
+Type "j"
+Sleep 800ms
+Type "j"
+Sleep 800ms
+Type "k"
+Sleep 800ms
+Type "k"
+Sleep 1s
+Enter
 Sleep 2.5s
