@@ -36,7 +36,8 @@ def draw(rows, sel, height):
     out = ["\x1b[H\x1b[2J", "j/k: select  Enter/l: right  -/s: down  Esc/q: cancel\r\n"]
     for i, (_, _, label) in enumerate(rows[top:top + height], top):
         line = label[:os.get_terminal_size().columns - 3]
-        out.append(f"\x1b[7m❯ {line}\x1b[0m\r\n" if i == sel else f"  {line}\r\n")
+        # Newline before each row, not after, so the last row doesn't scroll the hint away.
+        out.append(f"\r\n\x1b[7m❯ {line}\x1b[0m" if i == sel else f"\r\n  {line}")
     sys.stdout.write("".join(out))
     sys.stdout.flush()
 
@@ -60,7 +61,7 @@ def interactive():
     sel = 0
     try:
         while True:
-            draw(rows, sel, os.get_terminal_size().lines - 1)
+            draw(rows, sel, os.get_terminal_size().lines - 2)
             buf = os.read(fd, 64).decode(errors="ignore")
             while buf:
                 key = buf[:3] if buf.startswith("\x1b[") else buf[0]
