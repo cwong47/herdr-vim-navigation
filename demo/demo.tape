@@ -81,6 +81,32 @@ Ctrl+B
 Type "="
 Sleep 1.5s
 
+# ── Panes: maximize height, then width (vim ^W _ / ^W |) ──
+# The three panes sit side by side after H/L, so files drops to the bottom
+# edge (hidden) and focus goes up into the top row, giving both axes a split.
+# prefix = restores the sizes at the end.
+Hide
+Ctrl+B
+Type "J"
+Sleep 1.5s
+Ctrl+B
+Type "k"
+Sleep 300ms
+Type@5ms "cap 'Maximize height / width' 'prefix _ / +  (vim ^W _, ^W |)'"
+Enter
+Sleep 300ms
+Show
+Sleep 1.5s
+Ctrl+B
+Type "_"
+Sleep 1.5s
+Ctrl+B
+Type "+"
+Sleep 1.5s
+Ctrl+B
+Type "="
+Sleep 1.5s
+
 # ── Spaces: jump to last / first ──
 Hide
 Type@5ms "cap 'Last / first space' 'prefix }  then  prefix {'"

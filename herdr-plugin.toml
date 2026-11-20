@@ -1,8 +1,8 @@
 id = "herdr-vim-navigation"
 name = "Vim Navigation"
-version = "0.5.0"
+version = "0.6.0"
 min_herdr_version = "0.9.0"
-description = "Vim- and Screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W T pane to new tab, pane to new space, join pane into another tab, ^W = equalize, last-space toggle, first/last space and space reordering."
+description = "Vim- and Screen-style navigation for herdr: ^W H/J/K/L pane moves, ^W T pane to new tab, pane to new space, join pane into another tab, ^W = equalize, ^W _ / ^W | maximize, last-space toggle, first/last space and space reordering."
 platforms = ["linux", "macos"]
 
 # Records the last space you were in, for the last-space action.
@@ -44,6 +44,18 @@ id = "equalize"
 title = "Equalize panes"
 description = "Equalize pane sizes in the focused tab (Vim ^W =)."
 command = ["python3", "scripts/equalize.py"]
+
+[[actions]]
+id = "maximize-height"
+title = "Maximize pane height"
+description = "Make the focused pane as tall as it can get, width unchanged (Vim ^W _)."
+command = ["python3", "scripts/maximize.py", "height"]
+
+[[actions]]
+id = "maximize-width"
+title = "Maximize pane width"
+description = "Make the focused pane as wide as it can get, height unchanged (Vim ^W |)."
+command = ["python3", "scripts/maximize.py", "width"]
 
 [[actions]]
 id = "move-left"

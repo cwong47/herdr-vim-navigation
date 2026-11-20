@@ -3,7 +3,7 @@
 Vim- and Screen-style navigation for [herdr](https://herdr.dev): the window
 commands your fingers already know, for herdr panes and spaces.
 
-![demo: moving and equalizing panes, jumping, toggling and reordering spaces, closing other tabs and panes, breaking panes out to a new tab and space, joining a pane into another tab](demo/demo.gif)
+![demo: moving, equalizing and maximizing panes, jumping, toggling and reordering spaces, closing other tabs and panes, breaking panes out to a new tab and space, joining a pane into another tab](demo/demo.gif)
 
 | Action | Does | Like |
 |---|---|---|
@@ -14,6 +14,7 @@ commands your fingers already know, for herdr panes and spaces.
 | `only` | Close every other pane in the focused tab | Vim `^W o`, Screen `^A q` |
 | `only-tab` | Close every other tab in the focused space | Vim `:tabonly` |
 | `equalize` | Equal widths for panes side by side, equal heights for stacked ones | Vim `^W =` |
+| `maximize-height` / `maximize-width` | Make the focused pane as tall / wide as it can get, the other axis untouched | Vim `^W _` / `^W \|` |
 | `last-space` | Jump back to the space you were in before; again to return | Screen `^A ^A`, `cd -` |
 | `space-up` / `space-down` | Move the focused space in the sidebar; keep pressing `^K/^J` in the popup | — |
 | `space-first` / `space-last` | Focus the top / bottom space in the sidebar | Vim `^W t` / `^W b` |
@@ -56,6 +57,16 @@ The plugin only provides actions; bind the ones you want in
 key = "prefix+="
 type = "plugin_action"
 command = "herdr-vim-navigation.equalize"
+
+[[keys.command]]
+key = "prefix+_"
+type = "plugin_action"
+command = "herdr-vim-navigation.maximize-height"
+
+[[keys.command]]
+key = "prefix+plus"
+type = "plugin_action"
+command = "herdr-vim-navigation.maximize-width"
 
 [[keys.command]]
 key = "prefix+shift+q"
@@ -128,8 +139,9 @@ type = "plugin_action"
 command = "herdr-vim-navigation.space-last"
 ```
 
-`prefix+shift+h/j/k/l` replace nothing by default, and `prefix+=`/`prefix+b`/`prefix+@`
-are unbound in herdr's defaults. `prefix+shift+t`/`prefix+shift+w` are herdr's
+`prefix+shift+h/j/k/l` replace nothing by default, and `prefix+=`/`prefix+_`/`prefix+plus`/`prefix+b`/`prefix+@`
+are unbound in herdr's defaults. (`prefix+|`, Vim's `^W |`, is a common
+split-right binding, hence `prefix+plus` for width.) `prefix+shift+t`/`prefix+shift+w` are herdr's
 default `rename_tab`/`rename_workspace`; move those first (e.g.
 `rename_tab = "prefix+alt+t"`, `rename_workspace = "prefix+alt+w"` under
 `[keys]`). Check `prefix ?` against your own config.
@@ -144,6 +156,10 @@ default `rename_tab`/`rename_workspace`; move those first (e.g.
 - **Pane moves** briefly hop panes through temporary tabs (herdr refuses
   same-tab moves and can only split one pane at a time), so the tab bar may
   flicker. Zoomed tabs are left alone.
+- **maximize** pushes every split on the way to the focused pane along one
+  axis toward it. herdr clamps split ratios to 0.1-0.9, so neighbours keep a
+  sliver (about 10%) instead of Vim's one line. Zoomed tabs are left alone;
+  `equalize` undoes it.
 - **join** lists panes in every other tab of every space (same-tab moves are
   refused). In the popup, `j`/`k` or arrows select, `Enter`/`l`/`|` split
   right, `-`/`s` split down, `Esc`/`q` cancel.
