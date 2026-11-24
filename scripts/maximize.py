@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Make the focused pane as tall or wide as it can get (like Vim's ^W _ / ^W |).
 
-Usage: maximize.py height|width [pane_id]
+Usage: maximize.py height|width|both [pane_id]
 Every split on the way to the pane that stacks along the chosen axis is pushed
-toward the pane; the other axis is left alone. herdr clamps split ratios to
+toward the pane; the other axis is left alone. "both" does height and width,
+which fills the tab like zoom but keeps the other panes visible as slivers. herdr clamps split ratios to
 0.1-0.9, so neighbours keep a sliver instead of Vim's one line.
 """
 import sys
@@ -27,15 +28,15 @@ def maximize(axis, pane=None):
     root = layout["root"]
     if layout["zoomed"] or root["type"] == "pane":
         return
-    direction = "down" if axis == "height" else "right"
+    directions = {"height": {"down"}, "width": {"right"}, "both": {"down", "right"}}[axis]
     for path, d, second in path_to(root, pane or layout["focused_pane_id"]):
-        if d == direction:
+        if d in directions:
             call("layout.set_split_ratio", {"tab_id": layout["tab_id"], "path": path,
                                             "ratio": 0.0 if second else 1.0})
 
 
 if __name__ == "__main__":
     axis = sys.argv[1].lower() if len(sys.argv) > 1 else ""
-    if axis not in ("height", "width"):
-        sys.exit("usage: maximize.py height|width [pane_id]")
+    if axis not in ("height", "width", "both"):
+        sys.exit("usage: maximize.py height|width|both [pane_id]")
     maximize(axis, sys.argv[2] if len(sys.argv) > 2 else None)

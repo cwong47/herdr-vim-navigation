@@ -107,6 +107,21 @@ Ctrl+B
 Type "="
 Sleep 1.5s
 
+# ── Panes: maximize both axes, not zoom ──
+# Same layout and focus as above; prefix = restores the sizes again.
+Hide
+Type@5ms "cap 'Maximize (both, not zoom)' 'prefix M  (vim ^W _ ^W |)'"
+Enter
+Sleep 300ms
+Show
+Sleep 1.5s
+Ctrl+B
+Type "M"
+Sleep 2s
+Ctrl+B
+Type "="
+Sleep 1.5s
+
 # ── Spaces: jump to last / first ──
 Hide
 Type@5ms "cap 'Last / first space' 'prefix }  then  prefix {'"
